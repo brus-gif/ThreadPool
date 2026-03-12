@@ -19,6 +19,7 @@ ThreadPool::~ThreadPool()
 	state = false;
 	notempty.notify_all();
 	std::unique_lock<std::mutex>lock(taskquetex_);
+	delete stew;
 	while (curthreadnum>0)
 	{
 		cond.wait_for(lock, std::chrono::seconds(5), [&]()->bool {return curthreadnum == 0; });
